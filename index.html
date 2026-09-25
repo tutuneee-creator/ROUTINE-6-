@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROUTINE-6 | DAROGA/POLICE/BPSC/BSSC | YT-DREAMDOSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a0f2b; --navy2:#141c47; --indigo:#1d2761;
+    --gold:#f2b705; --amber:#ff7a29; --green:#2fd48a; --red:#ff4d5e; --cream:#f6f1e4; --dim:#aab0d6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(242,183,5,0.18), transparent 60%),
+      radial-gradient(900px 500px at 90% 110%, rgba(255,122,41,0.12), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+    color:var(--cream); font-family:'Hind', sans-serif;
+    display:flex; flex-direction:column; align-items:center; padding-bottom:40px;
+  }
+  .watermark{
+    width:100%; text-align:center;
+    background:linear-gradient(90deg, var(--amber), var(--gold));
+    color:#1a1200; font-family:'Baloo 2', sans-serif; font-weight:800; letter-spacing:0.5px;
+    padding:10px 12px; font-size:clamp(11px, 2.2vw, 17px);
+    box-shadow:0 4px 18px rgba(0,0,0,0.35); position:sticky; top:0; z-index:50; text-transform:uppercase;
+  }
+  .wrap{width:100%; max-width:720px; padding:20px 16px 0;}
+  .hero{text-align:center; padding:36px 10px 10px;}
+  .hero h1{
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(24px, 6vw, 40px); margin:0 0 6px;
+    background:linear-gradient(90deg, var(--gold), var(--amber));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 40px rgba(242,183,5,0.25);
+  }
+  .hero p{color:var(--dim); font-size:15px; margin:4px 0;}
+  .badge-row{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:18px 0 26px;}
+  .pill{background:rgba(255,255,255,0.06); border:1px solid rgba(242,183,5,0.35); color:var(--cream); padding:6px 14px; border-radius:999px; font-size:12px;}
+  .name-input{
+    width:100%; max-width:340px; margin:0 auto 18px; display:block;
+    padding:14px 16px; border-radius:12px; border:2px solid rgba(242,183,5,0.4);
+    background:rgba(255,255,255,0.05); color:var(--cream); font-size:16px; font-family:'Hind', sans-serif; text-align:center;
+  }
+  .name-input::placeholder{color:var(--dim);}
+  .btn{
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; color:#1a1200;
+    background:linear-gradient(90deg, var(--gold), var(--amber)); border:none;
+    padding:15px 34px; border-radius:14px; cursor:pointer; box-shadow:0 10px 30px rgba(255,122,41,0.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(255,122,41,0.45);}
+  .btn:active{transform:translateY(0px) scale(0.98);}
+
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin:14px 0 6px; gap:10px; flex-wrap:wrap;}
+  .progress-wrap{flex:1; min-width:160px;}
+  .progress-label{font-size:12px; color:var(--dim); margin-bottom:5px; display:flex; justify-content:space-between;}
+  .progress-track{height:8px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;}
+  .progress-fill{height:100%; background:linear-gradient(90deg, var(--gold), var(--amber)); border-radius:6px; transition:width .3s ease;}
+  .score-box{
+    font-family:'Baloo 2', sans-serif; font-weight:700; background:rgba(47,212,138,0.12);
+    border:1px solid rgba(47,212,138,0.4); color:var(--green); padding:8px 14px; border-radius:12px; font-size:14px; white-space:nowrap;
+  }
+  .cat-tag{
+    display:inline-block; font-size:11px; color:var(--navy); background:var(--gold);
+    padding:2px 9px; border-radius:7px; margin-bottom:8px; font-weight:700; letter-spacing:0.3px;
+  }
+  .timer-ring{
+    width:66px; height:66px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin:6px auto 2px; position:relative;
+    background:conic-gradient(var(--gold) calc(var(--pct,100)*1%), rgba(255,255,255,0.08) 0);
+    transition:background .25s linear;
+  }
+  .timer-ring.warn{background:conic-gradient(var(--red) calc(var(--pct,100)*1%), rgba(255,255,255,0.08) 0);}
+  .timer-ring::before{content:''; position:absolute; inset:6px; border-radius:50%; background:var(--navy2);}
+  .timer-num{position:relative; z-index:2; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:20px;}
+  .timer-num.warn{color:var(--red);}
+
+  .tagline{
+    text-align:center; font-family:'Baloo 2', sans-serif; font-weight:700;
+    font-size:clamp(18px,4.6vw,24px); color:var(--gold); margin:10px 0 2px; letter-spacing:0.3px;
+  }
+  .motivate{text-align:center; color:var(--dim); font-size:14px; margin:0 0 16px; font-style:italic;}
+
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border:1px solid rgba(242,183,5,0.25); border-radius:20px; padding:22px 20px 24px; box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  .qnum{
+    display:inline-block; font-family:'Baloo 2', sans-serif; font-weight:700; color:#1a1200;
+    background:var(--gold); padding:3px 12px; border-radius:8px; font-size:13px; margin-bottom:8px; margin-right:6px;
+  }
+  .q-en{font-size:16px; font-weight:600; line-height:1.5; margin:0 0 6px; white-space:pre-line;}
+  .q-hi{font-size:15px; color:var(--dim); line-height:1.6; margin:0 0 18px; white-space:pre-line;}
+
+  .options{display:flex; flex-direction:column; gap:10px;}
+  .opt{
+    text-align:left; background:rgba(255,255,255,0.045); border:2px solid rgba(255,255,255,0.12); color:var(--cream);
+    padding:13px 16px; border-radius:12px; font-size:15px; cursor:pointer; font-family:'Hind', sans-serif;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .opt:hover{border-color:rgba(242,183,5,0.6); background:rgba(242,183,5,0.08);}
+  .opt .k{
+    font-family:'Baloo 2', sans-serif; font-weight:700; background:rgba(255,255,255,0.1);
+    min-width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;
+  }
+  .opt.correct{border-color:var(--green); background:rgba(47,212,138,0.15);}
+  .opt.correct .k{background:var(--green); color:#08351f;}
+  .opt.wrong{border-color:var(--red); background:rgba(255,77,94,0.15);}
+  .opt.wrong .k{background:var(--red); color:#3a0509;}
+  .opt.disabled{cursor:default;}
+  .opt.faded{opacity:0.45;}
+
+  .feedback{margin-top:18px; padding:16px 16px; border-radius:14px; animation:pop .25s ease;}
+  @keyframes pop{from{transform:scale(0.96); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .feedback.correct{background:rgba(47,212,138,0.12); border:1px solid rgba(47,212,138,0.4);}
+  .feedback.wrong{background:rgba(255,77,94,0.12); border:1px solid rgba(255,77,94,0.4);}
+  .feedback h3{margin:0 0 8px; font-family:'Baloo 2', sans-serif; font-size:20px;}
+  .feedback.correct h3{color:var(--green);}
+  .feedback.wrong h3{color:var(--red);}
+  .feedback p{margin:4px 0; font-size:14px; line-height:1.55; color:var(--cream);}
+
+  .next-row{display:flex; justify-content:center; margin-top:18px;}
+
+  .overlay{
+    position:fixed; inset:0; background:rgba(6,8,26,0.85); display:flex; align-items:center; justify-content:center;
+    z-index:100; padding:16px; backdrop-filter:blur(3px);
+  }
+  .board{
+    background:linear-gradient(180deg, var(--indigo), var(--navy2)); border:2px solid var(--gold); border-radius:22px;
+    padding:30px 26px; max-width:420px; width:100%; text-align:center; box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  }
+  .board h2{font-family:'Baloo 2', sans-serif; color:var(--gold); font-size:24px; margin:0 0 16px;}
+  .board .stat-row{display:flex; justify-content:space-around; margin:18px 0;}
+  .stat{display:flex; flex-direction:column; gap:4px;}
+  .stat .num{font-family:'Baloo 2', sans-serif; font-size:28px; font-weight:800;}
+  .stat .lbl{font-size:12px; color:var(--dim);}
+  .stat.ok .num{color:var(--green);}
+  .stat.no .num{color:var(--red);}
+  .stat.acc .num{color:var(--gold);}
+  .board .comment{font-size:15px; margin:14px 0 20px; color:var(--cream);}
+
+  .final h2{font-family:'Baloo 2', sans-serif; font-size:clamp(24px,6vw,32px); color:var(--gold); margin-bottom:6px;}
+  .final .grade{
+    font-family:'Baloo 2', sans-serif; font-size:44px; font-weight:800; margin:14px 0;
+    background:linear-gradient(90deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .matchbox{display:flex; gap:14px; flex-wrap:wrap; margin:6px 0 16px;}
+  .matchcol{flex:1; min-width:150px;}
+  .matchrow{padding:6px 0; font-size:14px; border-bottom:1px dashed rgba(255,255,255,0.12);}
+
+  footer{margin-top:30px; color:var(--dim); font-size:12px; text-align:center; padding:0 16px;}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="watermark">🔥 YT-DREAMDOSE (ROUTINE-6): DAROGA/POLICE/BPSC/BSSC 🔥</div>
+
+<div class="wrap" id="app"></div>
+
+<footer>YT-DREAMDOSE · Bihar Police & Competitive Exam Prep</footer>
+
+<script>
+function opt(en,hi){ return {en:en, hi:hi}; }
+function Q(cat,en,hi,options,correct,exp_en,exp_hi,matchTable){
+  return {cat:cat,en:en,hi:hi,options:options,correct:correct,exp_en:exp_en,exp_hi:exp_hi,matchTable:matchTable||null};
+}
+
+const B="Blood / रक्त", MP="Mountain Passes / पर्वतीय दर्रे", PE="Project Elephant / एलिफेंट रिजर्व",
+      R="Revolt of 1857 / 1857 का विद्रोह", FD="Folk Dance / लोकनृत्य";
+
+const QUESTIONS = [
+/* ============ BLOOD (25) ============ */
+Q(B,"Where does hematopoiesis (blood cell formation) primarily occur in an adult human?","वयस्क मनुष्य में हेमेटोपोइसेस (रक्त कोशिका निर्माण) मुख्य रूप से कहाँ होता है?",
+ [opt("Yellow Bone Marrow","पीली अस्थि मज्जा"),opt("Liver","यकृत"),opt("Spleen","प्लीहा"),opt("Red Bone Marrow","लाल अस्थि मज्जा")],
+ 3,"Hematopoiesis primarily occurs in the red bone marrow in adults.","वयस्कों में हेमेटोपोइसेस मुख्य रूप से लाल अस्थि मज्जा में होता है।"),
+
+Q(B,"Consider the following statements regarding Blood Plasma:\n1. Plasma constitutes about 55% of the total blood volume.\n2. Water constitutes about 90-92% of blood plasma.\n3. Fibrinogen is a plasma protein essential for blood clotting.\n4. Plasma without clotting factors is called Serum.","रक्त प्लाज्मा के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. प्लाज्मा कुल रक्त आयतन का लगभग 55% भाग बनाता है।\n2. रक्त प्लाज्मा में जल की मात्रा लगभग 90-92% होती है।\n3. फाइब्रिनोजेन एक प्लाज्मा प्रोटीन है जो रक्त के थक्के जमने के लिए आवश्यक है।\n4. थक्का जमने वाले कारकों के बिना प्लाज्मा को सीरम कहा जाता है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements about blood plasma are correct.","रक्त प्लाज्मा के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Match List-I (Blood Component) with List-II (Primary Function) and select the correct answer:","सूची-I (रक्त घटक) को सूची-II (प्राथमिक कार्य) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 1,"RBCs – Oxygen transport; WBCs – Immune defense; Platelets – Blood clotting; Plasma Albumin – Maintenance of osmotic balance.","लाल रक्त कोशिकाएं – ऑक्सीजन परिवहन; श्वेत रक्त कोशिकाएं – प्रतिरक्षा रक्षा; प्लेटलेट्स – रक्त का थक्का जमना; प्लाज्मा एल्ब्यूमिन – परासरणी संतुलन।",
+ {left:["A. Red Blood Cells / लाल रक्त कोशिकाएं","B. White Blood Cells / श्वेत रक्त कोशिकाएं","C. Platelets / प्लेटलेट्स","D. Plasma Albumin / प्लाज्मा एल्ब्यूमिन"],
+  right:["1. Immune defense / प्रतिरक्षा रक्षा","2. Oxygen transport / ऑक्सीजन परिवहन","3. Maintenance of osmotic balance / परासरणी संतुलन","4. Blood clotting / रक्त का थक्का जमना"]}),
+
+Q(B,"Read the following statements regarding Hemoglobin:\n1. Hemoglobin is an iron-containing complex protein found in RBCs.\n2. Each molecule of hemoglobin can carry up to four molecules of oxygen.\n3. Binding of carbon monoxide to hemoglobin forms irreversible Carboxyhemoglobin.\n4. Normal hemoglobin level in healthy adults is around 12–16 g/dL.","हीमोग्लोबिन के बारे में निम्नलिखित कथनों पर विचार करें:\n1. हीमोग्लोबिन RBCs में पाया जाने वाला एक लौह-युक्त जटिल प्रोटीन है।\n2. हीमोग्लोबिन का प्रत्येक अणु चार ऑक्सीजन अणुओं तक ले जा सकता है।\n3. हीमोग्लोबिन से कार्बन मोनोऑक्साइड का जुड़ना अपरिवर्तनीय कार्बोक्सीहीमोग्लोबिन बनाता है।\n4. स्वस्थ वयस्कों में सामान्य हीमोग्लोबिन का स्तर लगभग 12-16 g/dL होता है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 4 only","केवल 1, 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about hemoglobin are correct.","हीमोग्लोबिन के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Which metal ion is present at the center of the heme group in Hemoglobin?","हीमोग्लोबिन में हीम समूह के केंद्र में कौन सा धातु आयन मौजूद होता है?",
+ [opt("Copper (Cu2+)","तांबा"),opt("Iron (Fe2+)","लोहा (फेरस आयन)"),opt("Magnesium (Mg2+)","मैग्नीशियम"),opt("Zinc (Zn2+)","जस्ता")],
+ 1,"Iron (Fe2+) is present at the center of the heme group, which binds oxygen.","हीम समूह के केंद्र में लोहा (Fe2+) मौजूद होता है, जो ऑक्सीजन से जुड़ता है।"),
+
+Q(B,"Consider the following statements regarding the Rh Factor:\n1. Rh antigen was first discovered in Rhesus monkeys.\n2. Rh negative mother carrying Rh positive fetus can cause Erythroblastosis Fetalis.\n3. Anti-D antibodies (RhoGAM) are administered to Rh negative mothers after first delivery.\n4. O negative (O-) blood group is the true universal donor blood type.","Rh कारक के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. Rh एंटीजन की खोज सबसे पहले रीसस बंदरों में की गई थी।\n2. Rh ऋणात्मक मां के पेट में Rh धनात्मक भ्रूण होने से एरिथ्रोब्लास्टोसिस फेटलिस हो सकता है।\n3. प्रथम प्रसव के बाद Rh ऋणात्मक माताओं को एंटी-डी एंटीबॉडी (RhoGAM) दी जाती है।\n4. ओ नेगेटिव (O-) रक्त समूह वास्तविक सर्वदाता रक्त प्रकार है।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 2,"All four statements about the Rh Factor are correct.","Rh कारक के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Match List-I (Blood Group) with List-II (Antigens on RBCs) and select the correct answer:","सूची-I (रक्त समूह) को सूची-II (RBCs पर एंटीजन) से सुमेलित करें:",
+ [opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-3, C-4, D-1","A-2, B-3, C-4, D-1"),opt("A-4, B-1, C-2, D-3","A-4, B-1, C-2, D-3")],
+ 0,"Group A – Antigen A only; Group B – Antigen B only; Group AB – Both Antigen A and B; Group O – Neither Antigen A nor B.","समूह A – केवल A एंटीजन; समूह B – केवल B एंटीजन; समूह AB – A और B दोनों एंटीजन; समूह O – कोई एंटीजन नहीं।",
+ {left:["A. Group A / समूह A","B. Group B / समूह B","C. Group AB / समूह AB","D. Group O / समूह O"],
+  right:["1. Antigen B only / केवल B एंटीजन","2. Antigen A only / केवल A एंटीजन","3. Neither Antigen A nor B / कोई एंटीजन नहीं","4. Both Antigen A and B / A और B दोनों एंटीजन"]}),
+
+Q(B,"Read the following statements regarding Blood Disorders:\n1. Anemia is characterized by a deficiency of hemoglobin or RBC count.\n2. Polycythemia refers to an abnormal increase in the number of RBCs.\n3. Leukemia is a blood cancer marked by uncontrollable increase in abnormal WBCs.\n4. Hemophilia is an X-linked recessive genetic disorder impairing blood clotting.","रक्त विकारों के बारे में निम्नलिखित कथनों पर विचार करें:\n1. एनीमिया की विशेषता हीमोग्लोबिन या RBC संख्या में कमी है।\n2. पॉलीसिथेमिया से तात्पर्य RBCs की संख्या में असामान्य वृद्धि से है।\n3. ल्यूकेमिया एक प्रकार का कैंसर है जिसमें असामान्य WBCs की अनियंत्रित वृद्धि होती है।\n4. हीमोफिलिया एक X-लिंक्ड रीसेसिव जेनेटिक विकार है जो थक्का जमने को रोकता है।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 4 only","केवल 1, 2 और 4")],
+ 2,"All four statements about blood disorders are correct.","रक्त विकारों के बारे में चारों कथन सही हैं।"),
+
+Q(B,"What is the approximate total volume of blood in a healthy adult human body?","एक स्वस्थ वयस्क मानव शरीर में रक्त की कुल अनुमानित मात्रा कितनी होती है?",
+ [opt("2 to 3 Liters","2 से 3 लीटर"),opt("8 to 9 Liters","8 से 9 लीटर"),opt("5 to 6 Liters","5 से 6 लीटर"),opt("10 to 12 Liters","10 से 12 लीटर")],
+ 2,"A healthy adult human body has approximately 5 to 6 liters of blood.","एक स्वस्थ वयस्क मानव शरीर में लगभग 5 से 6 लीटर रक्त होता है।"),
+
+Q(B,"Consider the following statements regarding White Blood Cells (WBCs):\n1. WBCs are nucleated and fewer in number compared to RBCs.\n2. Neutrophils are the most abundant type of WBCs in human blood.\n3. Monocytes are the largest leukocytes and perform phagocytosis.\n4. Eosinophils increase significantly during allergic reactions and parasitic infections.","श्वेत रक्त कोशिकाओं (WBCs) के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. WBCs केंद्रकयुक्त होती हैं और RBCs की तुलना में संख्या में कम होती हैं।\n2. न्यूट्रोफिल्स मानव रक्त में सबसे प्रचुर मात्रा में पाई जाने वाली WBCs हैं।\n3. मोनोसाइट्स सबसे बड़ी ल्यूकोसाइट्स हैं और भक्षकता (Phagocytosis) का कार्य करती हैं।\n4. एलर्जिक प्रतिक्रियाओं और परजीवी संक्रमणों में ईोसिनोफिल्स की संख्या में वृद्धि होती है।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 1,"All four statements about WBCs are correct.","WBCs के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Match List-I (Leukocyte Type) with List-II (Key Characteristic/Function) and select the correct answer:","सूची-I (ल्यूकोसाइट प्रकार) को सूची-II (विशेषता/कार्य) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-3, B-4, C-2, D-1","A-3, B-4, C-2, D-1"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-3, B-1, C-2, D-4","A-3, B-1, C-2, D-4")],
+ 3,"Neutrophils – Most abundant phagocyte; Lymphocytes – Antibody production; Basophils – Release Histamine & Heparin; Monocytes – Largest leukocyte.","न्यूट्रोफिल्स – सर्वाधिक प्रचुर भक्षक कोशिका; लिम्फोसाइट्स – एंटीबॉडी उत्पादन; बेसोफिल्स – हिस्टामाइन व हेपरिन स्राव; मोनोसाइट्स – सबसे बड़ी ल्यूकोसाइट।",
+ {left:["A. Neutrophils / न्यूट्रोफिल्स","B. Lymphocytes / लिम्फोसाइट्स","C. Basophils / बेसोफिल्स","D. Monocytes / मोनोसाइट्स"],
+  right:["1. Antibody production / एंटीबॉडी उत्पादन","2. Release Histamine & Heparin / हिस्टामाइन व हेपरिन स्राव","3. Most abundant phagocyte / सर्वाधिक प्रचुर भक्षक कोशिका","4. Largest leukocyte / सबसे बड़ी ल्यूकोसाइट"]}),
+
+Q(B,"Consider the following statements regarding Human Blood Pressure:\n1. Normal blood pressure of a healthy human is around 120/80 mmHg.\n2. 120 mmHg represents Systolic pressure and 80 mmHg represents Diastolic pressure.\n3. Sphygmomanometer is the instrument used to measure blood pressure.\n4. Persistent high blood pressure above 140/90 mmHg is termed Hypertension.","मानव रक्तचाप के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. स्वस्थ मनुष्य का सामान्य रक्तचाप लगभग 120/80 mmHg होता है।\n2. 120 mmHg सिस्टोलिक और 80 mmHg डायस्टोलिक दबाव को दर्शाता है।\n3. रक्तचाप मापने के लिए स्फिग्मोमैनोमीटर उपकरण का प्रयोग किया जाता है।\n4. 140/90 mmHg से अधिक का लगातार उच्च रक्तचाप हाइपरटेंशन कहलाता है।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 0,"All four statements about blood pressure are correct.","रक्तचाप के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Which type of blood group is rarest among the human population globally?","वैश्विक स्तर पर मानव आबादी में कौन सा रक्त समूह सबसे दुर्लभ है?",
+ [opt("AB Negative (AB-)","एबी नेगेटिव"),opt("O Positive (O+)","ओ पॉजिटिव"),opt("B Positive (B+)","बी पॉजिटिव"),opt("A Negative (A-)","ए नेगेटिव")],
+ 0,"AB Negative is the rarest blood group among the global human population.","एबी नेगेटिव वैश्विक स्तर पर सबसे दुर्लभ रक्त समूह है।"),
+
+Q(B,"Read the following statements regarding Blood Clotting (Coagulation):\n1. Prothrombin is converted to active Thrombin by the enzyme complex Thrombokinase.\n2. Thrombin converts soluble Fibrinogen into insoluble Fibrin threads.\n3. Calcium ions (Ca2+) play a crucial role in blood coagulation.\n4. Vitamin K is necessary for the synthesis of prothrombin in the liver.","रक्त के थक्के जमने (स्कंदन) के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. थ्रोम्बोकाइनेज एंजाइम जटिल द्वारा प्रोथ्रोम्बिन को सक्रिय थ्रोम्बिन में बदला जाता है।\n2. थ्रोम्बिन घुलनशील फाइब्रिनोजेन को अघुलनशील फाइब्रिन धागों में बदलता है।\n3. कैल्शियम आयन (Ca2+) रक्त के थक्के जमने में महत्वपूर्ण भूमिका निभाते हैं।\n4. यकृत में प्रोथ्रोम्बिन के संश्लेषण के लिए विटामिन K आवश्यक है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 1,"All four statements about blood coagulation are correct.","रक्त स्कंदन के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Match List-I (Blood Condition) with List-II (Clinical Definition) and select the correct answer:","सूची-I (रक्त स्थिति) को सूची-II (नैदानिक परिभाषा) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 2,"Leukopenia – Low WBC count; Polycythemia – Excess RBC count; Thrombocytopenia – Low Platelet count; Leukocytosis – High WBC count (Infection).","ल्यूकोपेनिया – WBCs की कम संख्या; पॉलीसिथेमिया – अत्यधिक RBC संख्या; थ्रोम्बोसाइटोपेनिया – प्लेटलेट्स की कम संख्या; ल्यूकोसाइटोसिस – उच्च WBC संख्या (संक्रमण)।",
+ {left:["A. Leukopenia / ल्यूकोपेनिया","B. Polycythemia / पॉलीसिथेमिया","C. Thrombocytopenia / थ्रोम्बोसाइटोपेनिया","D. Leukocytosis / ल्यूकोसाइटोसिस"],
+  right:["1. Excess RBC count / अत्यधिक RBC संख्या","2. Low WBC count / WBCs की कम संख्या","3. High WBC count (Infection) / उच्च WBC संख्या","4. Low Platelet count / प्लेटलेट्स की कम संख्या"]}),
+
+Q(B,"Consider the following statements regarding Red Blood Cells (RBCs):\n1. Mature human RBCs are biconcave and enucleated (lack nucleus).\n2. The average lifespan of a human RBC is about 120 days.\n3. Spleen is known as the graveyard of RBCs.\n4. Erythropoietin hormone from kidneys stimulates RBC production.","लाल रक्त कोशिकाओं (RBCs) के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. परिपक्व मानव RBCs द्वि-अवतल और केंद्रकविहीन (अकेन्द्रकीय) होती हैं।\n2. मानव RBC का औसत जीवनकाल लगभग 120 दिन होता है।\n3. प्लीहा (Spleen) को RBCs का कब्रिस्तान कहा जाता है।\n4. गुर्दे से स्रावित एरिथ्रोपोएटिन हार्मोन RBC उत्पादन को उत्तेजित करता है।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 2 only","केवल 1 और 2"),opt("2, 3 and 4 only","केवल 2, 3 और 4"),opt("1 and 3 only","केवल 1 और 3")],
+ 0,"All four statements about RBCs are correct.","RBCs के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Which instrument is used to determine the proportion of Red Blood Cells in whole blood (Hematocrit)?","संपूर्ण रक्त में लाल रक्त कोशिकाओं के अनुपात (हेमेटोक्रिट) को निर्धारित करने के लिए किस उपकरण का उपयोग किया जाता है?",
+ [opt("Hemocytometer","हेमोसाइटोमीटर"),opt("Sphygmomanometer","स्फिग्मोमैनोमीटर"),opt("Centrifuge","सेंट्रीफ्यूज"),opt("Stethoscope","स्टेथोस्कोप")],
+ 2,"A centrifuge is used to spin blood and determine the hematocrit — the proportion of RBCs in whole blood.","सेंट्रीफ्यूज का उपयोग रक्त को घुमाकर हेमेटोक्रिट — संपूर्ण रक्त में RBCs के अनुपात — को निर्धारित करने के लिए किया जाता है।"),
+
+Q(B,"Consider the following statements regarding ABO Blood Group System:\n1. Karl Landsteiner discovered the ABO blood group system.\n2. Person with Blood Group O has no antigens on RBCs and is a universal donor.\n3. Person with Blood Group AB has no antibodies in plasma and is a universal recipient.\n4. ABO antigens are oligosaccharides located on the surface of RBC membrane.","ABO रक्त समूह प्रणाली के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. कार्ल लैंडस्टीनर ने ABO रक्त समूह प्रणाली की खोज की थी।\n2. ओ (O) रक्त समूह वाले व्यक्ति की RBCs पर कोई एंटीजन नहीं होता और वह सर्वदाता है।\n3. AB रक्त समूह वाले व्यक्ति के प्लाज्मा में कोई एंटीबॉडी नहीं होती और वह सर्वग्राही है।\n4. ABO एंटीजन RBC झिल्ली की सतह पर स्थित ओलिगोसैकेराइड्स हैं।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 2 only","केवल 1 और 2"),opt("2, 3 and 4 only","केवल 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 0,"All four statements about the ABO blood group system are correct.","ABO रक्त समूह प्रणाली के बारे में चारों कथन सही हैं।"),
+
+Q(B,"With reference to Blood Platelets (Thrombocytes), consider the following statements:\n1. Platelets are cell fragments produced from Megakaryocytes in bone marrow.\n2. Platelets lack a nucleus.\n3. Reduction in platelet count leads to clotting disorders and excessive blood loss.\n4. Dengue fever typically causes a sharp decline in platelet count (Thrombocytopenia).","रक्त प्लेटलेट्स (थ्रोम्बोसाइट्स) के संदर्भ में निम्नलिखित कथनों पर विचार करें:\n1. प्लेटलेट्स अस्थि मज्जा में मेगाकार्योसाइट्स से बनने वाले कोशिका टुकड़े हैं।\n2. प्लेटलेट्स में केंद्रक नहीं होता है।\n3. प्लेटलेट्स की संख्या में कमी से थक्का जमने में विकार और अत्यधिक रक्तस्राव होता है।\n4. डेंगू बुखार से आमतौर पर प्लेटलेट संख्या में भारी गिरावट (थ्रोम्बोसाइटोपेनिया) आती है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 4 only","केवल 1, 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about blood platelets are correct.","रक्त प्लेटलेट्स के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Match List-I (Plasma Protein) with List-II (Biological Role) and select the correct answer:","सूची-I (प्लाज्मा प्रोटीन) को सूची-II (जैविक भूमिका) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-3, C-4, D-1","A-2, B-3, C-4, D-1"),opt("A-4, B-1, C-2, D-3","A-4, B-1, C-2, D-3"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3")],
+ 3,"Fibrinogen – Blood coagulation; Globulins – Defense mechanism (Antibodies); Albumin – Osmotic pressure balance; Myoglobin – Oxygen transport in muscle.","फाइब्रिनोजेन – रक्त का थक्का जमना; ग्लोबुलिन – रक्षा तंत्र (एंटीबॉडी); एल्ब्यूमिन – परासरणी दाब संतुलन; मायोग्लोबिन – मांसपेशियों में ऑक्सीजन।",
+ {left:["A. Fibrinogen / फाइब्रिनोजेन","B. Globulins / ग्लोबुलिन","C. Albumin / एल्ब्यूमिन","D. Myoglobin / मायोग्लोबिन"],
+  right:["1. Defense mechanism (Antibodies) / रक्षा तंत्र","2. Blood coagulation / रक्त का थक्का जमना","3. Oxygen transport in muscle / मांसपेशियों में ऑक्सीजन","4. Osmotic pressure balance / परासरणी दाब संतुलन"]}),
+
+Q(B,"Consider the following statements regarding Anticoagulants:\n1. Heparin is a natural anticoagulant produced by basophils and mast cells in human body.\n2. Hirudin is a natural anticoagulant present in the saliva of leeches.\n3. Sodium citrate and EDTA are used as anticoagulants in blood collection bags.\n4. Anticoagulants act by chelating calcium or inhibiting thrombin activity.","प्रतिस्कंदकों (Anticoagulants) के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. हेपरिन मानव शरीर में बेसोफिल्स और मस्तूल कोशिकाओं द्वारा निर्मित प्राकृतिक प्रतिस्कंदक है।\n2. हिरुडिन जोंक की लार में मौजूद एक प्राकृतिक प्रतिस्कंदक है।\n3. सोडियम साइट्रेट और EDTA का उपयोग ब्लड बैंक थैलियों में प्रतिस्कंदक के रूप में किया जाता है।\n4. प्रतिस्कंदक कैल्शियम को बांधकर या थ्रोम्बिन गतिविधि को रोककर कार्य करते हैं।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 1,"All four statements about anticoagulants are correct.","प्रतिस्कंदकों के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Consider the following statements regarding Lymph (Tissue Fluid):\n1. Lymph is a colorless fluid containing specialized lymphocytes.\n2. Lymph lacks RBCs and large plasma proteins.\n3. Fats absorbed from intestine are transported through lymph in lacteals.\n4. Lymph drains back into the major venous system.","लसीका (ऊतक द्रव) के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. लसीका एक रंगहीन द्रव है जिसमें विशिष्ट लिम्फोसाइट्स होते हैं।\n2. लसीका में RBCs और बड़े प्लाज्मा प्रोटीन अनुपस्थित होते हैं।\n3. आंत से अवशोषित वसा का परिवहन लैक्टियल्स में लसीका द्वारा होता है।\n4. लसीका वापस प्रमुख शिरापरक प्रणाली (Venous System) में बहती है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 3 and 4 only","केवल 1, 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about lymph are correct.","लसीका के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Read the following statements regarding Blood Vessels:\n1. Arteries carry oxygenated blood away from the heart (except Pulmonary Artery).\n2. Veins have valves to prevent backflow of blood under low pressure.\n3. Capillaries are single-cell thick vessels where exchange of gases occurs.\n4. Pulmonary Vein is the only vein carrying oxygenated blood from lungs to heart.","रक्त वाहिकाओं के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. धमनियां (Arteries) हृदय से दूर ऑक्सीजन युक्त रक्त ले जाती हैं (फुफ्फुसीय धमनी को छोड़कर)।\n2. कम दबाव में रक्त के विपरीत प्रवाह को रोकने के लिए शिराओं (Veins) में कपाट (Valves) होते हैं।\n3. केशिकाएं (Capillaries) एक-कोशिकीय मोटाई वाली वाहिकाएं हैं जहां गैसों का विनिमय होता है।\n4. फुफ्फुसीय शिरा (Pulmonary Vein) एकमात्र शिरा है जो फेफड़ों से हृदय तक शुद्ध रक्त ले जाती है।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 0,"All four statements about blood vessels are correct.","रक्त वाहिकाओं के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Consider the following statements regarding Granulocytes and Agranulocytes:\n1. Neutrophils, Eosinophils, and Basophils are Granulocytes.\n2. Lymphocytes and Monocytes are Agranulocytes.\n3. B-lymphocytes produce antibodies while T-lymphocytes assist in cell-mediated immunity.\n4. Basophils secrete Histamine, Serotonin, and Heparin involved in inflammatory reactions.","कणिकामय (Granulocytes) और अकणिकामय (Agranulocytes) WBCs के संबंध में कथनों पर विचार करें:\n1. न्यूट्रोफिल्स, ईोसिनोफिल्स और बेसोफिल्स कणिकामय ल्यूकोसाइट्स हैं।\n2. लिम्फोसाइट्स और मोनोसाइट्स अकणिकामय ल्यूकोसाइट्स हैं।\n3. B-लिम्फोसाइट्स एंटीबॉडी बनाते हैं जबकि T-लिम्फोसाइट्स सेल-मीडिएटेड इम्युनिटी में मदद करते हैं।\n4. बेसोफिल्स हिस्टामाइन, सेरोटोनिन और हेपरिन स्रावित करते हैं जो सूजन संबंधी प्रतिक्रियाओं में शामिल हैं।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 2,"All four statements about granulocytes and agranulocytes are correct.","कणिकामय और अकणिकामय ल्यूकोसाइट्स के बारे में चारों कथन सही हैं।"),
+
+Q(B,"Consider the following statements regarding Blood pH and Buffers:\n1. Human blood pH is slightly alkaline, ranging between 7.35 and 7.45.\n2. Carbonic acid-bicarbonate buffer system maintains constant blood pH.\n3. Fall in blood pH below 7.35 is called Acidosis.\n4. Rise in blood pH above 7.45 is called Alkalosis.","रक्त के pH और बफर के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. मानव रक्त का pH थोड़ा क्षारीय होता है, जो 7.35 और 7.45 के बीच होता है।\n2. कार्बोनिक एसिड-बाइकार्बोनेट बफर सिस्टम स्थिर रक्त pH बनाए रखता है।\n3. रक्त pH का 7.35 से नीचे गिरना एसिडोसिस कहलाता है।\n4. रक्त pH का 7.45 से ऊपर उठना एल्कलोसिस कहलाता है।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about blood pH and buffers are correct.","रक्त pH और बफर के बारे में चारों कथन सही हैं।"),
+
+/* ============ MOUNTAIN PASSES (10) ============ */
+Q(MP,"Consider the following statements regarding the Zoji La Pass:\n1. It connects Srinagar with Leh in the union territory of Ladakh.\n2. It is situated in the Zaskar Range of the Himalayas.\n3. National Highway 1 (NH-1) passes through this mountain pass.\n4. It remains open throughout the year without any winter closures.","ज़ोजी ला दर्रे के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. यह केंद्र शासित प्रदेश लद्दाख में श्रीनगर को लेह से जोड़ता है।\n2. यह हिमालय की जास्कर श्रेणी में स्थित है।\n3. राष्ट्रीय राजमार्ग 1 (NH-1) इस पहाड़ी दर्रे से होकर गुजरता है।\n4. यह बिना किसी शीतकालीन बंदी के पूरे वर्ष खुला रहता है।",
+ [opt("1, 2 and 4 only","केवल 1, 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 1,"Statements 1, 2 & 3 are correct. Statement 4 is wrong — Zoji La traditionally closes during peak winter due to heavy snowfall.","कथन 1, 2 और 3 सही हैं। कथन 4 गलत है — ज़ोजी ला परंपरागत रूप से भारी बर्फबारी के कारण शीतकाल में बंद हो जाता है।"),
+
+Q(MP,"Consider the following statements regarding Nathu La Pass:\n1. It is located in the East Sikkim district along the Indo-China border.\n2. It formed an offshoot of the ancient Silk Road route.\n3. Border trade between India and China was reopened through Nathu La in 2006.\n4. It connects the state of Sikkim with the Lhasa region of Tibet.","नाथू ला दर्रे के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. यह भारत-चीन सीमा पर पूर्वी सिक्किम जिले में स्थित है।\n2. यह प्राचीन सिल्क रोड मार्ग का एक हिस्सा था।\n3. भारत और चीन के बीच सीमा व्यापार 2006 में नाथू ला के माध्यम से पुनः शुरू किया गया था।\n4. यह सिक्किम राज्य को तिब्बत के ल्हासा क्षेत्र से जोड़ता है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements about Nathu La Pass are correct.","नाथू ला दर्रे के बारे में चारों कथन सही हैं।"),
+
+Q(MP,"Read the following statements regarding the Passes of Western Ghats:\n1. Thal Ghat connects Mumbai to Nashik.\n2. Bhor Ghat connects Mumbai to Pune.\n3. Pal Ghat (Palakkad Gap) lies between the Nilgiri Hills and Anaimalai Hills.\n4. Shencottah Gap connects Thiruvananthapuram with Madurai.","पश्चिमी घाट के दर्रों के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. थाल घाट मुंबई को नासिक से जोड़ता है।\n2. भोर घाट मुंबई को पुणे से जोड़ता है।\n3. पाल घाट (पालक्काड़ गैप) नीलगिरी पहाड़ियों और अनाइमलाई पहाड़ियों के बीच स्थित है।\n4. शेनकोट्टा गैप तिरुवनंतपुरम को मदुरै से जोड़ता है।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about the passes of the Western Ghats are correct.","पश्चिमी घाट के दर्रों के बारे में चारों कथन सही हैं।"),
+
+Q(MP,"Match List-I (Mountain Pass) with List-II (State/UT) and select the correct answer:","सूची-I (पर्वतीय दर्रा) को सूची-II (राज्य/केंद्र शासित प्रदेश) से सुमेलित करें:",
+ [opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 0,"Shipki La – Himachal Pradesh; Jelep La – Sikkim; Lipulekh – Uttarakhand; Bom Di La – Arunachal Pradesh.","शिपकी ला – हिमाचल प्रदेश; जेलेप ला – सिक्किम; लिपुलेख – उत्तराखंड; बोम डी ला – अरुणाचल प्रदेश।",
+ {left:["A. Shipki La / शिपकी ला","B. Jelep La / जेलेप ला","C. Lipulekh / लिपुलेख","D. Bom Di La / बोम डी ला"],
+  right:["1. Sikkim / सिक्किम","2. Himachal Pradesh / हिमाचल प्रदेश","3. Arunachal Pradesh / अरुणाचल प्रदेश","4. Uttarakhand / उत्तराखंड"]}),
+
+Q(MP,"Match List-I (Pass) with List-II (Connects/Feature) and select the correct answer:","सूची-I (दर्रा) को सूची-II (जुड़ाव/विशेषता) से सुमेलित करें:",
+ [opt("A-1, B-3, C-4, D-2","A-1, B-3, C-4, D-2"),opt("A-2, B-3, C-4, D-1","A-2, B-3, C-4, D-1"),opt("A-2, B-1, C-3, D-4","A-2, B-1, C-3, D-4"),opt("A-4, B-2, C-1, D-3","A-4, B-2, C-1, D-3")],
+ 1,"Banihal Pass – Jawahar Tunnel; Bara-lacha La – Lahaul valley with Ladakh; Rohtang Pass – Kullu valley with Lahaul & Spiti; Mana Pass – Kailash-Mansarovar Yatra route.","बनिहाल दर्रा – जवाहर टनल; बाड़ा-लाचा ला – लाहुल घाटी को लद्दाख से; रोहतांग दर्रा – कुल्लू घाटी को लाहुल और स्पीति से; माना दर्रा – कैलाश-मानसरोवर यात्रा मार्ग।",
+ {left:["A. Banihal Pass / बनिहाल दर्रा","B. Bara-lacha La / बाड़ा-लाचा ला","C. Rohtang Pass / रोहतांग दर्रा","D. Mana Pass / माना दर्रा"],
+  right:["1. Kailash-Mansarovar Yatra route / कैलाश-मानसरोवर यात्रा मार्ग","2. Jawahar Tunnel / जवाहर टनल","3. Lahaul valley with Ladakh / लाहुल घाटी को लद्दाख से","4. Kullu valley with Lahaul & Spiti / कुल्लू घाटी को लाहुल-स्पीति से"]}),
+
+Q(MP,"Match List-I (Pass in Arunachal Pradesh) with List-II (Geographical Location/Border) and select the correct answer:","सूची-I (अरुणाचल प्रदेश के दर्रे) को सूची-II (भौगोलिक स्थिति/सीमा) से सुमेलित करें:",
+ [opt("A-4, B-3, C-1, D-2","A-4, B-3, C-1, D-2"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-4, B-1, C-3, D-2","A-4, B-1, C-3, D-2"),opt("A-1, B-3, C-2, D-4","A-1, B-3, C-2, D-4")],
+ 0,"Dihang Pass – Great Himalayas in Arunachal; Diphu Pass – Tri-junction of India, China & Myanmar; Sela Pass – Near Tawang; Pangsau Pass – Connects Arunachal with Myanmar.","दिहांग दर्रा – अरुणाचल में महान हिमालय; दिफू दर्रा – भारत, चीन व म्यांमार का त्रि-जंक्शन; सेला दर्रा – तवांग के पास; पांगसौ दर्रा – अरुणाचल को म्यांमार से जोड़ता है।",
+ {left:["A. Dihang Pass / दिहांग दर्रा","B. Diphu Pass / दिफू दर्रा","C. Sela Pass / सेला दर्रा","D. Pangsau Pass / पांगसौ दर्रा"],
+  right:["1. Near Tawang / तवांग के पास","2. Connects Arunachal with Myanmar / अरुणाचल को म्यांमार से जोड़ता है","3. Tri-junction of India, China & Myanmar / भारत-चीन-म्यांमार त्रि-जंक्शन","4. Great Himalayas in Arunachal / अरुणाचल में महान हिमालय"]}),
+
+Q(MP,"Match List-I (Western/Southern Pass) with List-II (Mountain Range) and select the correct answer:","सूची-I (पश्चिमी/दक्षिणी दर्रा) को सूची-II (पर्वत श्रृंखला) से सुमेलित करें:",
+ [opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 0,"Haldighati Pass – Aravalli Range; Asirgarh Fort Pass – Satpura Range; Thal Ghat – Northern Western Ghats (Sahyadri); Shencottah Gap – Southern Western Ghats.","हल्दीघाटी दर्रा – अरावली श्रेणी; असीरगढ़ किला दर्रा – सतपुड़ा श्रेणी; थाल घाट – उत्तरी पश्चिमी घाट (सह्याद्रि); शेनकोट्टा गैप – दक्षिणी पश्चिमी घाट।",
+ {left:["A. Haldighati Pass / हल्दीघाटी दर्रा","B. Asirgarh Fort Pass / असीरगढ़ किला दर्रा","C. Thal Ghat / थाल घाट","D. Shencottah Gap / शेनकोट्टा गैप"],
+  right:["1. Satpura Range / सतपुड़ा श्रेणी","2. Aravalli Range / अरावली श्रेणी","3. Southern Western Ghats / दक्षिणी पश्चिमी घाट","4. Northern Western Ghats (Sahyadri) / उत्तरी पश्चिमी घाट"]}),
+
+Q(MP,"Match List-I (Pass in UT of Ladakh) with List-II (Significance) and select the correct answer:","सूची-I (लद्दाख के दर्रे) को सूची-II (महत्व) से सुमेलित करें:",
+ [opt("A-1, B-2, C-4, D-3","A-1, B-2, C-4, D-3"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-2, D-4","A-3, B-1, C-2, D-4")],
+ 1,"Umling La – Highest motorable pass road in the world; Khardung La – Gateway to Nubra and Shyok Valleys; Karakoram Pass – Ancient pass between India and Yarkand (China); Chang La – Connects Leh to Pangong Tso.","उमलिंग ला – दुनिया की सबसे ऊंची मोटर योग्य सड़क; खरदुंग ला – नुब्रा और श्योक घाटी का प्रवेश द्वार; काराकोरम दर्रा – भारत और यारकंद के बीच प्राचीन दर्रा; चांग ला – लेह को पैंगोंग त्सो से जोड़ता है।",
+ {left:["A. Umling La / उमलिंग ला","B. Khardung La / खरदुंग ला","C. Karakoram Pass / काराकोरम दर्रा","D. Chang La / चांग ला"],
+  right:["1. Gateway to Nubra and Shyok Valleys / नुब्रा-श्योक घाटी का प्रवेश द्वार","2. Highest motorable pass road in the world / दुनिया की सबसे ऊंची मोटर सड़क","3. Connects Leh to Pangong Tso / लेह को पैंगोंग त्सो से जोड़ता है","4. Ancient pass between India and Yarkand / भारत-यारकंद प्राचीन दर्रा"]}),
+
+Q(MP,"Through which mountain pass does the Sutlej River enter India from Tibet?","सतलुज नदी तिब्बत से भारत में किस पर्वतीय दर्रे के माध्यम से प्रवेश करती है?",
+ [opt("Nathu La","नाथू ला"),opt("Shipki La","शिपकी ला"),opt("Jelep La","जेलेप ला"),opt("Rohtang Pass","रोहतांग दर्रा")],
+ 1,"The Sutlej River enters India from Tibet through the Shipki La pass in Himachal Pradesh.","सतलुज नदी हिमाचल प्रदेश के शिपकी ला दर्रे के माध्यम से तिब्बत से भारत में प्रवेश करती है।"),
+
+Q(MP,"Which mountain pass is historically known as the \"Key to the Deccan\"?","किस पर्वतीय दर्रे को ऐतिहासिक रूप से \"दक्कन की कुंजी\" के रूप में जाना जाता है?",
+ [opt("Asirgarh Pass","असीरगढ़ दर्रा"),opt("Goram Ghat","गोरम घाट"),opt("Pal Ghat","पाल घाट"),opt("Bhor Ghat","भोर घाट")],
+ 0,"Asirgarh Pass is historically known as the 'Key to the Deccan' due to its strategic location guarding the route into the Deccan plateau.","असीरगढ़ दर्रे को दक्कन के पठार में जाने वाले मार्ग की रणनीतिक स्थिति के कारण ऐतिहासिक रूप से 'दक्कन की कुंजी' कहा जाता है।"),
+
+/* ============ PROJECT ELEPHANT (7) ============ */
+Q(PE,"Consider the following statements regarding Project Elephant:\n1. Project Elephant was launched in the year 1992 as a Centrally Sponsored Scheme.\n2. The Asian Elephant is listed as \"Endangered\" in the IUCN Red List.\n3. MIKE (Monitoring the Illegal Killing of Elephants) program is an initiative under CITES.\n4. Project Elephant is a statutory scheme mandated under the Environment Protection Act, 1986.","प्रोजेक्ट एलिफेंट के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. प्रोजेक्ट एलिफेंट को वर्ष 1992 में केंद्र प्रायोजित योजना के रूप में शुरू किया गया था।\n2. एशियाई हाथी को IUCN की रेड लिस्ट में \"संकटग्रस्त\" श्रेणी में सूचीबद्ध किया गया है।\n3. माइक (MIKE) कार्यक्रम सीआईटीईएस (CITES) के तहत एक पहल है।\n4. प्रोजेक्ट एलिफेंट पर्यावरण संरक्षण अधिनियम, 1986 के तहत एक वैधानिक योजना है।",
+ [opt("1 and 4 only","केवल 1 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("2, 3 and 4 only","केवल 2, 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 1,"Statements 1, 2 & 3 are correct. Statement 4 is wrong — Project Elephant is an administrative scheme, not a statutory one.","कथन 1, 2 और 3 सही हैं। कथन 4 गलत है — प्रोजेक्ट एलिफेंट एक प्रशासनिक योजना है, वैधानिक नहीं।"),
+
+Q(PE,"Consider the following statements regarding Terai Elephant Reserve:\n1. It is located in the state of Uttar Pradesh.\n2. It encompasses the protected areas of Dudhwa National Park and Kishanpur Wildlife Sanctuary.\n3. It was notified as the 33rd Elephant Reserve in India.\n4. It is the largest Elephant Reserve in Southern India.","तराई हाथी रिजर्व के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. यह उत्तर प्रदेश राज्य में स्थित है।\n2. इसमें दुधवा राष्ट्रीय उद्यान और किशनपुर वन्यजीव अभयारण्य का संरक्षित क्षेत्र शामिल है।\n3. इसे भारत में 33वें हाथी रिजर्व के रूप में अधिसूचित किया गया था।\n4. यह दक्षिण भारत का सबसे बड़ा हाथी रिजर्व है।",
+ [opt("2 and 4 only","केवल 2 और 4"),opt("1 and 3 only","केवल 1 और 3"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 2,"Statements 1, 2 & 3 are correct. Statement 4 is wrong — the Terai Elephant Reserve is in Northern India (Uttar Pradesh), not Southern India.","कथन 1, 2 और 3 सही हैं। कथन 4 गलत है — तराई हाथी रिजर्व उत्तर भारत (उत्तर प्रदेश) में है, दक्षिण भारत में नहीं।"),
+
+Q(PE,"Read the following statements regarding Agasthyamalai Elephant Reserve:\n1. It is notified in the state of Tamil Nadu.\n2. It was approved as India's 31st Elephant Reserve in 2022.\n3. It forms part of the Agasthyamalai Biosphere Reserve in the Southern Western Ghats.\n4. It connects elephant corridors with the Periyar Reserve landscape.","अगस्त्यमलाई हाथी रिजर्व के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. यह तमिलनाडु राज्य में अधिसूचित है।\n2. इसे 2022 में भारत के 31वें हाथी रिजर्व के रूप में मंजूरी दी गई थी।\n3. यह दक्षिणी पश्चिमी घाट में अगस्त्यमलाई बायोस्फीयर रिजर्व का हिस्सा बनता है।\n4. यह पेरियार रिजर्व परिदृश्य के साथ हाथी गलियारों को जोड़ता है।",
+ [opt("2 and 4 only","केवल 2 और 4"),opt("1 and 3 only","केवल 1 और 3"),opt("1, 2 and 3 only","केवल 1, 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements about Agasthyamalai Elephant Reserve are correct.","अगस्त्यमलाई हाथी रिजर्व के बारे में चारों कथन सही हैं।"),
+
+Q(PE,"Match List-I (Elephant Reserve) with List-II (State) and select the correct answer:","सूची-I (हाथी रिजर्व) को सूची-II (राज्य) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 1,"Lemru Elephant Reserve – Chhattisgarh; Mayurbhanj Elephant Reserve – Odisha; Singhbhum Elephant Reserve – Jharkhand; Singphan Elephant Reserve – Nagaland.","लेमरू हाथी रिजर्व – छत्तीसगढ़; मयूरभंज हाथी रिजर्व – ओडिशा; सिंहभूम हाथी रिजर्व – झारखंड; सिंगफन हाथी रिजर्व – नागालैंड।",
+ {left:["A. Lemru Elephant Reserve / लेमरू हाथी रिजर्व","B. Mayurbhanj Elephant Reserve / मयूरभंज हाथी रिजर्व","C. Singhbhum Elephant Reserve / सिंहभूम हाथी रिजर्व","D. Singphan Elephant Reserve / सिंगफन हाथी रिजर्व"],
+  right:["1. Odisha / ओडिशा","2. Chhattisgarh / छत्तीसगढ़","3. Nagaland / नागालैंड","4. Jharkhand / झारखंड"]}),
+
+Q(PE,"Match List-I (Elephant Reserve) with List-II (Region/State Location) and select the correct answer:","सूची-I (हाथी रिजर्व) को सूची-II (राज्य क्षेत्र) से सुमेलित करें:",
+ [opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-4, B-2, C-1, D-3","A-4, B-2, C-1, D-3")],
+ 0,"Kameng Elephant Reserve – Arunachal Pradesh; Garo Hills Elephant Reserve – Meghalaya; Mayurjharna Elephant Reserve – West Bengal; Dihing Patkai Elephant Reserve – Assam.","कामेंग हाथी रिजर्व – अरुणाचल प्रदेश; गारो हिल्स हाथी रिजर्व – मेघालय; मयूरझरना हाथी रिजर्व – पश्चिम बंगाल; दिहिंग पटकाई हाथी रिजर्व – असम।",
+ {left:["A. Kameng Elephant Reserve / कामेंग हाथी रिजर्व","B. Garo Hills Elephant Reserve / गारो हिल्स हाथी रिजर्व","C. Mayurjharna Elephant Reserve / मयूरझरना हाथी रिजर्व","D. Dihing Patkai Elephant Reserve / दिहिंग पटकाई हाथी रिजर्व"],
+  right:["1. West Bengal / पश्चिम बंगाल","2. Arunachal Pradesh / अरुणाचल प्रदेश","3. Assam / असम","4. Meghalaya / मेघालय"]}),
+
+Q(PE,"Match List-I (Elephant Reserve/Landscape) with List-II (Key Feature/Specialty) and select the correct answer:","सूची-I (हाथी रिजर्व/परिदृश्य) को सूची-II (मुख्य विशेषता) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-1, C-3, D-4","A-2, B-1, C-3, D-4"),opt("A-3, B-4, C-1, D-2","A-3, B-4, C-1, D-2"),opt("A-2, B-3, C-4, D-1","A-2, B-3, C-4, D-1")],
+ 1,"Mysore Elephant Reserve – Contains highest wild elephant population in South India; Singhbhum Elephant Reserve – India's first notified Elephant Reserve (2001); Dandeli Elephant Reserve – Located in Western Ghats of Karnataka; Shivalik Elephant Reserve – Covers major elephant corridors in Uttarakhand.","मैसूर हाथी रिजर्व – दक्षिण भारत में सर्वाधिक जंगली हाथियों की आबादी; सिंहभूम हाथी रिजर्व – भारत का पहला अधिसूचित हाथी रिजर्व (2001); दांदेली हाथी रिजर्व – कर्नाटक के पश्चिमी घाट में स्थित; शिवालिक हाथी रिजर्व – उत्तराखंड में प्रमुख हाथी गलियारे।",
+ {left:["A. Mysore Elephant Reserve / मैसूर हाथी रिजर्व","B. Singhbhum Elephant Reserve / सिंहभूम हाथी रिजर्व","C. Dandeli Elephant Reserve / दांदेली हाथी रिजर्व","D. Shivalik Elephant Reserve / शिवालिक हाथी रिजर्व"],
+  right:["1. India's first notified Elephant Reserve (2001) / भारत का पहला अधिसूचित हाथी रिजर्व","2. Contains highest wild elephant population in South India / दक्षिण भारत में सर्वाधिक हाथी आबादी","3. Located in Western Ghats of Karnataka / कर्नाटक के पश्चिमी घाट में स्थित","4. Covers major elephant corridors in Uttarakhand / उत्तराखंड में प्रमुख हाथी गलियारे"]}),
+
+Q(PE,"Which state in India has the highest population of wild Asian Elephants as per the official Elephant Census?","आधिकारिक हाथी जनगणना के अनुसार भारत के किस राज्य में जंगली एशियाई हाथियों की संख्या सर्वाधिक है?",
+ [opt("Assam","असम"),opt("Kerala","केरल"),opt("Karnataka","कर्नाटक"),opt("Tamil Nadu","तमिलनाडु")],
+ 2,"Karnataka hosts the largest wild elephant population in India.","कर्नाटक में भारत की सबसे बड़ी जंगली हाथियों की आबादी है।"),
+
+/* ============ REVOLT OF 1857 (24) ============ */
+Q(R,"Consider the following statements regarding the immediate causes of the Revolt of 1857:\n1. The introduction of the Enfield Rifle triggered widespread resentment among sepoys.\n2. Cartridges were believed to be greased with cow and pig fat.\n3. Mangal Pandey revolted at Barrackpore on March 29, 1857.\n4. Mangal Pandey belonged to the 34th Native Infantry regiment.","1857 के विद्रोह के तात्कालिक कारणों के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. एनफील्ड राइफल की शुरुआत ने सिपाहियों में व्यापक असंतोष पैदा किया।\n2. माना जाता था कि कारतूसों में गाय और सूअर की चर्बी का इस्तेमाल किया गया था।\n3. मंगल पांडे ने 29 मार्च 1857 को बैरकपुर में विद्रोह किया।\n4. मंगल पांडे 34वीं नेटिव इन्फैंट्री रेजिमेंट से संबंधित थे।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding the outbreak at Meerut and Delhi:\n1. The revolt formally began at Meerut on May 10, 1857.\n2. Sepoys marched from Meerut to Delhi and declared Bahadur Shah II as Emperor.\n3. General Bakht Khan was the real military commander of the rebels in Delhi.\n4. British Officer John Nicholson died during the recapture of Delhi.","मेरठ और दिल्ली में विद्रोह की शुरुआत के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. विद्रोह का औपचारिक प्रारंभ 10 मई 1857 को मेरठ में हुआ था।\n2. सिपाही मेरठ से दिल्ली पहुंचे और बहादुर शाह द्वितीय को सम्राट घोषित किया।\n3. दिल्ली में विद्रोहियों के वास्तविक सैन्य कमांडर जनरल बख्त खान थे।\n4. दिल्ली पर पुनः अधिकार प्राप्त करने के दौरान ब्रिटिश अधिकारी जॉन निकोलसन की मृत्यु हो गई।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 1,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Read the following statements regarding Kunwar Singh's role in 1857:\n1. Kunwar Singh led the revolt in Jagdishpur, Bihar.\n2. He was a local zamindar of the Ujjainiya Rajput clan.\n3. He successfully captured Azamgarh during his military campaign.\n4. British Generals William Taylor and Vincent Eyre suppressed the rebellion in Bihar.","1857 के विद्रोह में कुंवर सिंह की भूमिका के संबंध में कथनों पर विचार करें:\n1. कुंवर सिंह ने बिहार के जगदीशपुर में विद्रोह का नेतृत्व किया।\n2. वह उज्जैनिया राजपूत घराने के स्थानीय ज़मींदार थे।\n3. उन्होंने अपने सैन्य अभियान के दौरान आजमगढ़ पर सफलतापूर्वक कब्ज़ा किया था।\n4. ब्रिटिश जनरल विलियम टेलर और विंसेंट आयर ने बिहार में विद्रोह का दमन किया।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 1,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"With reference to Rani Lakshmibai of Jhansi, consider the following statements:\n1. Jhansi was annexed by Lord Dalhousie under the Doctrine of Lapse.\n2. Rani Lakshmibai captured Gwalior with the help of Tatya Tope.\n3. Sir Hugh Rose described her as the \"only man among the rebels\".\n4. She died fighting at Kota-ki-Serai near Gwalior in June 1858.","झांसी की रानी लक्ष्मीबाई के संदर्भ में निम्नलिखित कथनों पर विचार करें:\n1. डलहौजी ने हड़प नीति के तहत झांसी का विलय किया।\n2. रानी लक्ष्मीबाई ने तांत्या टोपे की मदद से ग्वालियर पर अधिकार किया।\n3. सर ह्यूज रोज़ ने उन्हें \"विद्रोहियों में एकमात्र पुरुष\" बताया था।\n4. जून 1858 में ग्वालियर के पास कोटा-की-सराय में लड़ते हुए वह वीरगति को प्राप्त हुईं।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding the Administrative Causes of 1857:\n1. Abolition of titles and pensions alienated the Indian ruling elite.\n2. Exclusion of Indians from high administrative posts created widespread discontent.\n3. General Service Enlistment Act (1856) made overseas service mandatory for sepoys.\n4. Religious Disabilities Act of 1850 protected civil rights of converts from Hinduism.","1857 के विद्रोह के प्रशासनिक कारणों के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. उपाधियों और पेंशन की समाप्ति ने भारतीय शासक वर्ग को नाराज किया।\n2. उच्च प्रशासनिक पदों से भारतीयों के बेदखल होने से असंतोष फैला।\n3. सामान्य सेवा भर्ती अधिनियम (1856) ने विदेश सेवा को अनिवार्य बना दिया।\n4. 1850 के धार्मिक अयोग्यता अधिनियम ने धर्म परिवर्तन करने वालों के नागरिक अधिकारों की रक्षा की।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Read the following statements regarding Nana Saheb and Tatya Tope:\n1. Nana Saheb was the adopted son of Peshwa Baji Rao II.\n2. Nana Saheb led the rebellion from Kanpur.\n3. Tatya Tope's real name was Ramachandra Panduranga.\n4. Tatya Tope carried on guerrilla warfare until betrayed and hanged in 1859.","नाना साहेब और तांत्या टोपे के बारे में निम्नलिखित कथनों पर विचार करें:\n1. नाना साहेब पेशवा बाजीराव द्वितीय के दत्तक पुत्र थे।\n2. नाना साहेब ने कानपुर से विद्रोह का नेतृत्व किया।\n3. तांत्या टोपे का वास्तविक नाम रामचंद्र पांडुरंग था।\n4. तांत्या टोपे ने 1859 में धोखे से पकड़े जाने तक छापामार युद्ध जारी रखा।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 2 only","केवल 1 और 2"),opt("2, 3 and 4 only","केवल 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 0,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding the revolt in Awadh (Oudh):\n1. Awadh was annexed in 1856 on the grounds of \"misgovernance\".\n2. Begum Hazrat Mahal declared her minor son Birjis Qadr as Nawab.\n3. Sir Henry Lawrence died during the siege of Residency in Lucknow.\n4. Colin Campbell suppressed the revolt in Lucknow with Gurkha regiments.","अवध में 1857 के विद्रोह के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. अवध को 1856 में \"कुशासन\" के आधार पर अधिग्रहित किया गया था।\n2. बेगम हज़रत महल ने अपने नाबालिग बेटे बिरजिस कद्र को नवाब घोषित किया।\n3. लखनऊ में रेजीडेंसी के घेराव के दौरान सर हेनरी लॉरेंस की मौत हुई थी।\n4. कॉलिन कैंपबेल ने गोरखा सैनिकों की मदद से लखनऊ में विद्रोह को दबाया।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding Queen Victoria's Proclamation of 1858:\n1. It was read out by Lord Canning at a grand Darbar in Allahabad on Nov 1, 1858.\n2. It transferred power from the East India Company to the British Crown.\n3. The Doctrine of Lapse was officially withdrawn by this proclamation.\n4. The Governor-General of India received the additional title of Viceroy.","1858 की महारानी विक्टोरिया की उद्घोषणा के संबंध में कथनों पर विचार करें:\n1. इसे 1 नवंबर 1858 को इलाहाबाद में लॉर्ड कैनिंग द्वारा पढ़ा गया था।\n2. इसने ईस्ट इंडिया कंपनी से सत्ता ब्रिटिश क्राउन को हस्तांतरित कर दी।\n3. इस उद्घोषणा द्वारा हड़प नीति को समाप्त कर दिया गया।\n4. भारत के गवर्नर-जनरल को वायसराय की अतिरिक्त उपाधि दी गई।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2 and 4 only","केवल 1, 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4")],
+ 3,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Read the following statements regarding historians' views on the 1857 Revolt:\n1. V.D. Savarkar hailed it as \"The First War of Indian Independence\".\n2. Dr. R.C. Majumdar stated it was \"Neither first, nor national, nor a war of independence.\"\n3. John Lawrence described it strictly as a \"Sepoy Mutiny\".\n4. Dr. S.N. Sen authored the official history titled \"1857\".","1857 के विद्रोह पर इतिहासकारों के विचारों के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. वी.डी. सावरकर ने इसे \"भारत का पहला स्वतंत्रता संग्राम\" कहा था।\n2. डॉ. आर.सी. मजूमदार ने कहा: \"न तो प्रथम, न राष्ट्रीय, न ही स्वतंत्रता संग्राम।\"\n3. जॉन लॉरेंस ने इसे केवल एक \"सिपाही विद्रोह\" बताया था।\n4. डॉ. एस.एन. सेन ने \"1857\" शीर्षक से आधिकारिक सरकारी इतिहास लिखा।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 0,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"With reference to post-1857 Army Reorganization (Peel Commission), consider the following:\n1. The Peel Commission recommended complete reorganization of the army.\n2. The proportion of European soldiers to Indian soldiers was increased.\n3. Artillery was placed almost exclusively in European hands.\n4. Army recruitment adopted the Martial/Non-Martial race policy.","1857 के बाद सैन्य पुनर्गठन (पील कमीशन) के संदर्भ में विचार करें:\n1. पील कमीशन ने सेना के पूर्ण पुनर्गठन की सिफारिश की थी।\n2. भारतीय सैनिकों की तुलना में यूरोपीय सैनिकों का अनुपात बढ़ाया गया।\n3. तोपखाने को विशेष रूप से यूरोपीय नियंत्रण में रखा गया।\n4. सेना भर्ती में मार्शल/गैर-मार्शल जातियों की नीति अपनाई गई।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding Economic Impact of British Rule before 1857:\n1. High land revenue demands ruined Indian peasantry.\n2. British trade policies caused commercial de-industrialization in India.\n3. Displaced artisans joined the rebellion in large numbers.\n4. Inam Commission (1852) confiscated over 20,000 rent-free estates in Deccan.","1857 से पूर्व ब्रिटिश शासन के आर्थिक प्रभाव के संदर्भ में कथनों पर विचार करें:\n1. अत्यधिक भू-राजस्व मांगों ने भारतीय किसानों को तबाह कर दिया।\n2. ब्रिटिश व्यापार नीतियों ने भारत में वि-औद्योगीकरण किया।\n3. बेरोजगार कारीगरों ने बड़ी संख्या में विद्रोह में भाग लिया।\n4. इमाम कमीशन (1852) ने दक्कन में 20,000 से अधिक कर-मुक्त जागीरें जब्त कीं।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("2 and 3 only","केवल 2 और 3"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 1,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Read the following statements regarding Maulvi Ahmadullah Shah:\n1. He was a prominent rebel leader from Faizabad.\n2. He preached Jihad against the British rule.\n3. British officers acknowledged his exceptional military valor.\n4. British declared a reward of Rs. 50,000 for his capture.","मौलवी अहमदुल्ला शाह के बारे में निम्नलिखित कथनों पर विचार करें:\n1. वह फैजाबाद के एक प्रमुख विद्रोही नेता थे।\n2. उन्होंने ब्रिटिश शासन के खिलाफ जिहाद का प्रचार किया।\n3. ब्रिटिश अधिकारियों ने उनकी असाधारण सैन्य वीरता को स्वीकार किया।\n4. अंग्रेजों ने उनकी गिरफ्तारी पर 50,000 रुपये का इनाम घोषित किया था।",
+ [opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 0,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding Shah Mal of Baraut (Baghpat):\n1. Shah Mal mobilized villagers of 84 villages (Chaurasi des).\n2. He attacked government buildings and destroyed irrigation bridges.\n3. He set up an intelligence network to supply rebel troops in Delhi.\n4. He was killed in battle by British officer Dunlop in July 1857.","बड़ौत (बागपत) के शाह मल के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. शाह मल ने 84 गांवों (चौरासी देस) के ग्रामीणों को संगठित किया।\n2. उन्होंने सरकारी भवनों और नहर के पुलों को नष्ट किया।\n3. उन्होंने दिल्ली के विद्रोहियों को राशन और गुप्त सूचनाएं प्रदान कीं।\n4. जुलाई 1857 में ब्रिटिश अधिकारी डनलप के खिलाफ लड़ते हुए वह शहीद हुए।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 4 only","केवल 1, 2 और 4")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Read the following statements regarding Khan Bahadur Khan of Bareilly:\n1. He was a descendant of Rohilla chief Hafiz Rahmat Khan.\n2. He organized an administration in Rohilkhand during the revolt.\n3. He united both Hindus and Muslims in his local government.\n4. Colin Campbell defeated him and recaptured Bareilly in 1858.","बरेली के खान बहादुर खान के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. वह रोहिल्ला सरदार हाफिज रहमत खान के वंशज थे।\n2. उन्होंने विद्रोह के दौरान रुहेलखंड में अपना प्रशासन स्थापित किया।\n3. उन्होंने अपनी स्थानीय सरकार में हिंदुओं और मुसलमानों को एकजुट किया।\n4. कॉलिन कैंपबेल ने उन्हें हराकर 1858 में बरेली पर पुनः अधिकार कर लिया।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Consider the following statements regarding the Reasons for Failure of 1857 Revolt:\n1. The revolt lacked all-India participation and unified leadership.\n2. Modern educated middle class Indians did not support the rebels.\n3. Indian princes like Scindia, Holkar, and Nizam actively aided the British.\n4. British troops possessed superior military technology and organization.","1857 के विद्रोह की विफलता के कारणों के संदर्भ में निम्नलिखित कथनों पर विचार करें:\n1. विद्रोह में अखिल भारतीय भागीदारी और एकीकृत नेतृत्व की कमी थी।\n2. आधुनिक शिक्षित मध्यवर्ग के भारतीयों ने विद्रोहियों का समर्थन नहीं किया।\n3. सिंधिया, होल्कर और निजाम जैसे शासकों ने अंग्रेजों की सक्रिय मदद की।\n4. ब्रिटिश सैनिकों के पास बेहतर सैन्य तकनीक और संगठन था।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements are correct.","चारों कथन सही हैं।"),
+
+Q(R,"Match List-I (Center of Revolt) with List-II (British Suppressor) and select the correct answer:","सूची-I (विद्रोह का केंद्र) को सूची-II (दमनकारी ब्रिटिश अधिकारी) से सुमेलित करें:",
+ [opt("A-2, B-3, C-1, D-4","A-2, B-3, C-1, D-4"),opt("A-3, B-2, C-4, D-1","A-3, B-2, C-4, D-1"),opt("A-2, B-1, C-3, D-4","A-2, B-1, C-3, D-4"),opt("A-1, B-4, C-2, D-3","A-1, B-4, C-2, D-3")],
+ 0,"Delhi – John Nicholson; Jhansi – Sir Hugh Rose; Lucknow – Sir Colin Campbell; Jagdishpur – Vincent Eyre.","दिल्ली – जॉन निकोलसन; झांसी – सर ह्यूज रोज़; लखनऊ – सर कॉलिन कैंपबेल; जगदीशपुर – विंसेंट आयर।",
+ {left:["A. Delhi / दिल्ली","B. Jhansi / झांसी","C. Lucknow / लखनऊ","D. Jagdishpur / जगदीशपुर"],
+  right:["1. Sir Colin Campbell / सर कॉलिन कैंपबेल","2. John Nicholson / जॉन निकोलसन","3. Sir Hugh Rose / सर ह्यूज रोज़","4. Vincent Eyre / विंसेंट आयर"]}),
+
+Q(R,"Match List-I (Book on 1857) with List-II (Author) and select the correct answer:","सूची-I (1857 पर पुस्तक) को सूची-II (लेखक) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-3, C-1, D-4","A-2, B-3, C-1, D-4"),opt("A-3, B-1, C-2, D-4","A-3, B-1, C-2, D-4"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3")],
+ 1,"The Indian War of Independence 1857 – V.D. Savarkar; Eighteen Fifty-Seven (1857) – Dr. S.N. Sen; Asbab-e-Baghawat-e-Hind – Sir Syed Ahmad Khan; The Sepoy Mutiny and Revolt of 1857 – Dr. R.C. Majumdar.","द इंडियन वॉर ऑफ इंडिपेंडेंस 1857 – वी.डी. सावरकर; अठारह सत्तावन (1857) – डॉ. एस.एन. सेन; असबाब-ए-बगावत-ए-हिंद – सर सैयद अहमद खान; द सिपॉय म्यूटिनी एंड रिवोल्ट ऑफ 1857 – डॉ. आर.सी. मजूमदार।",
+ {left:["A. The Indian War of Independence 1857","B. Eighteen Fifty-Seven (1857)","C. Asbab-e-Baghawat-e-Hind","D. The Sepoy Mutiny and Revolt of 1857"],
+  right:["1. Sir Syed Ahmad Khan / सर सैयद अहमद खान","2. V.D. Savarkar / वी.डी. सावरकर","3. Dr. S.N. Sen / डॉ. एस.एन. सेन","4. Dr. R.C. Majumdar / डॉ. आर.सी. मजूमदार"]}),
+
+Q(R,"Match List-I (Rebel Leader) with List-II (Region/State) and select the correct answer:","सूची-I (विद्रोही नेता) को सूची-II (क्षेत्र/राज्य) से सुमेलित करें:",
+ [opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 0,"Shah Mal – Baraut (UP); Surendra Sai – Sambalpur; Kadam Singh – Meerut; Maniram Dutta – Assam.","शाह मल – बड़ौत (यूपी); सुरेंद्र साईं – संबलपुर; कदम सिंह – मेरठ; मनीराम दत्ता – असम।",
+ {left:["A. Shah Mal / शाह मल","B. Surendra Sai / सुरेंद्र साईं","C. Kadam Singh / कदम सिंह","D. Maniram Dutta / मनीराम दत्ता"],
+  right:["1. Sambalpur / संबलपुर","2. Baraut (UP) / बड़ौत (यूपी)","3. Assam / असम","4. Meerut / मेरठ"]}),
+
+Q(R,"Match List-I (Act/Policy) with List-II (Governor-General associated) and select the correct answer:","सूची-I (अधिनियम/नीति) को सूची-II (संबंधित गवर्नर-जनरल) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-3, B-1, C-2, D-4","A-3, B-1, C-2, D-4"),opt("A-2, B-4, C-3, D-1","A-2, B-4, C-3, D-1"),opt("A-4, B-3, C-1, D-2","A-4, B-3, C-1, D-2")],
+ 2,"Doctrine of Lapse – Lord Dalhousie; General Service Enlistment Act 1856 – Lord Canning; Annexation of Awadh (1856) – Lord Dalhousie; Queen's Proclamation (1858) – Lord Canning.","व्यपगत का सिद्धांत – लॉर्ड डलहौजी; सामान्य सेवा भर्ती अधिनियम 1856 – लॉर्ड कैनिंग; अवध का विलय (1856) – लॉर्ड डलहौजी; महारानी की उद्घोषणा (1858) – लॉर्ड कैनिंग।",
+ {left:["A. Doctrine of Lapse / व्यपगत का सिद्धांत","B. General Service Enlistment Act 1856","C. Annexation of Awadh (1856) / अवध का विलय","D. Queen's Proclamation (1858) / महारानी की उद्घोषणा"],
+  right:["1. Lord Canning / लॉर्ड कैनिंग","2. Lord Dalhousie / लॉर्ड डलहौजी","3. Lord Dalhousie / लॉर्ड डलहौजी","4. Lord Canning / लॉर्ड कैनिंग"]}),
+
+Q(R,"Who was the Governor-General of India during the Revolt of 1857?","1857 के विद्रोह के समय भारत का गवर्नर-जनरल कौन था?",
+ [opt("Lord Dalhousie","लॉर्ड डलहौजी"),opt("Lord Ellenborough","लॉर्ड एलेनबरो"),opt("Lord Canning","लॉर्ड कैनिंग"),opt("Lord Hardinge","लॉर्ड हार्डिंग")],
+ 2,"Lord Canning was the Governor-General of India during the Revolt of 1857.","लॉर्ड कैनिंग 1857 के विद्रोह के समय भारत के गवर्नर-जनरल थे।"),
+
+Q(R,"Who among the following was the British Prime Minister during the Revolt of 1857?","1857 के विद्रोह के समय ब्रिटेन का प्रधानमंत्री कौन था?",
+ [opt("Benjamin Disraeli","बेंजामिन डिसरावेली"),opt("Lord Palmerston","लॉर्ड पामर्स्टन"),opt("William Gladstone","विलियम ग्लैडस्टोन"),opt("Winston Churchill","विंस्टन चर्चिल")],
+ 1,"Lord Palmerston was the British Prime Minister during the Revolt of 1857.","लॉर्ड पामर्स्टन 1857 के विद्रोह के समय ब्रिटेन के प्रधानमंत्री थे।"),
+
+Q(R,"Which native emperor was proclaimed as the \"Shahenshah-e-Hindustan\" by the rebels of 1857?","1857 के विद्रोहियों द्वारा किसे \"शहंशाह-ए-हिंदुस्तान\" घोषित किया गया था?",
+ [opt("Bahadur Shah II","बहादुर शाह द्वितीय"),opt("Nana Saheb","नाना साहेब"),opt("Wajid Ali Shah","वाजिद अली शाह"),opt("Shah Alam II","शाह आलम द्वितीय")],
+ 0,"Bahadur Shah II, the last Mughal emperor, was proclaimed 'Shahenshah-e-Hindustan' by the rebels.","बहादुर शाह द्वितीय, अंतिम मुगल सम्राट, को विद्रोहियों ने 'शहंशाह-ए-हिंदुस्तान' घोषित किया था।"),
+
+Q(R,"Who led the revolt of 1857 in Mathura region?","मथुरा क्षेत्र में 1857 के विद्रोह का नेतृत्व किसने किया था?",
+ [opt("Kadam Singh","कदम सिंह"),opt("Raja Tula Ram","राजा तुला राम"),opt("Devi Singh","देवी सिंह"),opt("Rao Tula Ram","राव तुला राम")],
+ 2,"Devi Singh led the revolt of 1857 in the Mathura region.","देवी सिंह ने मथुरा क्षेत्र में 1857 के विद्रोह का नेतृत्व किया था।"),
+
+Q(R,"Where was Bahadur Shah II deported by the British after the capture of Delhi?","दिल्ली पर कब्जे के बाद अंग्रेजों द्वारा बहादुर शाह द्वितीय को कहाँ निर्वासित किया गया था?",
+ [opt("Andaman Islands","अंडमान द्वीप समूह"),opt("Rangoon (Yangon)","रंगून (यांगून)"),opt("Ceylon (Sri Lanka)","सिलोन (श्रीलंका)"),opt("Mandalay","मांडले")],
+ 1,"Bahadur Shah II was deported to Rangoon (Yangon), where he died in exile.","बहादुर शाह द्वितीय को रंगून (यांगून) निर्वासित किया गया, जहाँ निर्वासन में उनकी मृत्यु हुई।"),
+
+/* ============ FOLK DANCE (4) ============ */
+Q(FD,"Consider the following statements regarding Kalbelia Dance:\n1. It is a traditional folk dance performed by the snake charmer community of Rajasthan.\n2. The movements and costumes closely resemble the movements of a serpent.\n3. Been and Khanjari are the main traditional musical instruments used.\n4. It was inscribed on UNESCO's Representative List of Intangible Cultural Heritage in 2010.","कालबेलिया नृत्य के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. यह राजस्थान की कालबेलिया (सपेरा) जनजाति द्वारा किया जाने वाला लोकनृत्य है।\n2. इसकी चाल और पोशाक सर्प की चाल और आकृति से काफी मिलती-जुलती है।\n3. बीन और खंजरी इसमें इस्तेमाल होने वाले प्रमुख पारंपरिक वाद्य यंत्र हैं।\n4. इसे 2010 में यूनेस्को की अमूर्त सांस्कृतिक विरासत सूची में शामिल किया गया था।",
+ [opt("1 and 2 only","केवल 1 और 2"),opt("3 and 4 only","केवल 3 और 4"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("1, 3 and 4 only","केवल 1, 3 और 4")],
+ 2,"All four statements about Kalbelia dance are correct.","कालबेलिया नृत्य के बारे में चारों कथन सही हैं।"),
+
+Q(FD,"Read the following statements regarding Rouf and Bhand Pather:\n1. Rouf is a traditional folk dance performed mainly by women in Jammu and Kashmir.\n2. Rouf is traditionally performed during the spring season and Ramzan festival.\n3. Bhand Pather is a traditional folk theatre-dance form of the Kashmir valley.\n4. It incorporates satire and comedy on social issues accompanied by Surnai and Dhol.","रऊफ और भांड पाथेर के संबंध में निम्नलिखित कथनों पर विचार करें:\n1. रऊफ मुख्य रूप से जम्मू और कश्मीर में महिलाओं द्वारा किया जाने वाला लोकनृत्य है।\n2. रऊफ पारंपरिक रूप से वसंत ऋतु और रमजान के दौरान प्रस्तुत किया जाता है।\n3. भांड पाथेर कश्मीर घाटी का एक पारंपरिक लोक नाट्य-नृत्य रूप है।\n4. इसमें सुरनाई और ढोल के साथ सामाजिक मुद्दों पर व्यंग्य और हास्य का समावेश होता है।",
+ [opt("1 and 3 only","केवल 1 और 3"),opt("1, 2, 3 and 4","1, 2, 3 और 4"),opt("2 and 4 only","केवल 2 और 4"),opt("1, 2 and 3 only","केवल 1, 2 और 3")],
+ 1,"All four statements about Rouf and Bhand Pather are correct.","रऊफ और भांड पाथेर के बारे में चारों कथन सही हैं।"),
+
+Q(FD,"Match List-I (Folk Dance) with List-II (State) and select the correct answer:","सूची-I (लोकनृत्य) को सूची-II (राज्य) से सुमेलित करें:",
+ [opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-2, B-4, C-1, D-3","A-2, B-4, C-1, D-3"),opt("A-3, B-1, C-4, D-2","A-3, B-1, C-4, D-2")],
+ 1,"Charkula – Uttar Pradesh; Tippani – Gujarat; Cheraw (Bamboo Dance) – Mizoram; Nati – Himachal Pradesh.","चरकुला – उत्तर प्रदेश; टिप्पणी – गुजरात; चेराव (बांस नृत्य) – मिजोरम; नाटी – हिमाचल प्रदेश।",
+ {left:["A. Charkula / चरकुला","B. Tippani / टिप्पणी","C. Cheraw / चेराव (बांस नृत्य)","D. Nati / नाटी"],
+  right:["1. Gujarat / गुजरात","2. Uttar Pradesh / उत्तर प्रदेश","3. Himachal Pradesh / हिमाचल प्रदेश","4. Mizoram / मिजोरम"]}),
+
+Q(FD,"Match List-I (Folk Dance) with List-II (Key Feature / Region) and select the correct answer:","सूची-I (लोकनृत्य) को सूची-II (मुख्य विशेषता/क्षेत्र) से सुमेलित करें:",
+ [opt("A-2, B-1, C-4, D-3","A-2, B-1, C-4, D-3"),opt("A-1, B-2, C-3, D-4","A-1, B-2, C-3, D-4"),opt("A-2, B-3, C-4, D-1","A-2, B-3, C-4, D-1"),opt("A-4, B-1, C-2, D-3","A-4, B-1, C-2, D-3")],
+ 0,"Ghoomar – Bhil tribe folk dance performed by veiled women in skirts; Chhari – Performed with lighted oil lamps balanced on brass pots; Koli – Folk dance of the fisherman community of Maharashtra; Paika – Martial folk dance performed with sword and shield.","घूमर – घूंघट वाली महिलाओं का भील जनजातीय नृत्य; चरी – पीतल के बर्तनों पर दीपक संतुलित करके प्रस्तुत; कोली – महाराष्ट्र के मछुआरा समुदाय का लोकनृत्य; पाइका – तलवार और ढाल से किया जाने वाला मार्शल नृत्य।",
+ {left:["A. Ghoomar / घूमर","B. Chhari / चरी","C. Koli / कोली","D. Paika / पाइका"],
+  right:["1. Performed with lighted oil lamps balanced on brass pots / दीपक संतुलित करके प्रस्तुत","2. Bhil tribe folk dance performed by veiled women in skirts / भील जनजातीय नृत्य","3. Martial folk dance performed with sword and shield / तलवार-ढाल से मार्शल नृत्य","4. Folk dance of the fisherman community of Maharashtra / मछुआरा समुदाय का लोकनृत्य"]})
+];
+
+/* -------- rotating game-show taglines & motivational lines -------- */
+const TAGLINES = [
+  "🔥 BRAIN BLAST!",
+  "🧠 CAN YOU CRACK IT?",
+  "🎯 EXAM TRAP!",
+  "🚨 DON'T FALL FOR THE TRAP!",
+  "🏆 BOSS LEVEL!"
+];
+const MOTIVATE = [
+  "ध्यान से सोचिए… इसमें एक ट्रैप है! 👀",
+  "जवाब लॉक करने से पहले अच्छी तरह सोच लें! 🔒",
+  "जल्दबाजी न करें—हर विकल्प ध्यान से पढ़ें! 🎯",
+  "आपकी मेहनत रंग लाएगी—फोकस बनाए रखें! 💪",
+  "एक-एक अंक मायने रखता है, ध्यान से चुनें! ⭐"
+];
+
+const TOTAL_TIME = 120;
+let state = {
+  idx:0, score:0, correctCount:0, wrongCount:0,
+  answered:false, timer:null, timeLeft:TOTAL_TIME, name:""
+};
+
+const app = document.getElementById('app');
+
+function shuffleTag(arr, i){ return arr[i % arr.length]; }
+
+function renderStart(){
+  app.innerHTML = `
+    <div class="hero">
+      <h1>ROUTINE-6</h1>
+      <p>Daroga / Police / BPSC / BSSC · Bilingual Game-Show Quiz · ${QUESTIONS.length} Questions</p>
+      <div class="badge-row">
+        <span class="pill">⏱️ 120 sec / question</span>
+        <span class="pill">🌐 English + हिंदी</span>
+        <span class="pill">🏆 Live Scoreboard</span>
+      </div>
+      <input id="nameInput" class="name-input" placeholder="अपना नाम लिखें (optional)" maxlength="24">
+      <div><button class="btn" id="startBtn">🚀 Start Quiz / क्विज़ शुरू करें</button></div>
+    </div>
+  `;
+  document.getElementById('startBtn').onclick = ()=>{
+    state.name = document.getElementById('nameInput').value.trim();
+    state = {...state, idx:0, score:0, correctCount:0, wrongCount:0};
+    renderQuestion();
+  };
+}
+
+function renderQuestion(){
+  clearInterval(state.timer);
+  state.answered = false;
+  state.timeLeft = TOTAL_TIME;
+  const q = QUESTIONS[state.idx];
+  const qn = state.idx + 1;
+  const pct = Math.round((state.idx/QUESTIONS.length)*100);
+
+  let matchHtml = "";
+  if(q.matchTable){
+    matchHtml = `<div class="matchbox">
+      <div class="matchcol">
+        ${q.matchTable.left.map(l=>`<div class="matchrow">${l}</div>`).join('')}
+      </div>
+      <div class="matchcol">
+        ${q.matchTable.right.map(r=>`<div class="matchrow">${r}</div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Q${qn} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="score-box">🏅 ${state.score} pts</div>
+    </div>
+    <div class="timer-ring" id="ring" style="--pct:100">
+      <div class="timer-num" id="timerNum">${TOTAL_TIME}</div>
+    </div>
+    <div class="tagline">${shuffleTag(TAGLINES, state.idx)}</div>
+    <div class="motivate">${shuffleTag(MOTIVATE, state.idx)}</div>
+    <div class="card">
+      <span class="qnum">Q${qn}</span>
+      <div class="cat-tag">${q.cat}</div>
+      <p class="q-en">${q.en}</p>
+      <p class="q-hi">${q.hi}</p>
+      ${matchHtml}
+      <div class="options" id="optionsBox">
+        ${q.options.map((o,i)=>`
+          <button class="opt" data-i="${i}">
+            <span class="k">${String.fromCharCode(65+i)}</span>
+            <span>${o.en} <span style="color:var(--dim);">/ ${o.hi}</span></span>
+          </button>
+        `).join('')}
+      </div>
+      <div id="feedbackBox"></div>
+      <div class="next-row" id="nextRow"></div>
+    </div>
+  `;
+
+  document.querySelectorAll('.opt').forEach(btn=>{
+    btn.onclick = ()=> selectAnswer(parseInt(btn.dataset.i));
+  });
+
+  startTimer();
+}
+
+function startTimer(){
+  const ring = document.getElementById('ring');
+  const num = document.getElementById('timerNum');
+  state.timer = setInterval(()=>{
+    state.timeLeft--;
+    const pct = Math.max(0, Math.round((state.timeLeft/TOTAL_TIME)*100));
+    ring.style.setProperty('--pct', pct);
+    num.textContent = state.timeLeft;
+    if(state.timeLeft <= 20){
+      ring.classList.add('warn'); num.classList.add('warn');
+    }
+    if(state.timeLeft <= 0){
+      clearInterval(state.timer);
+      if(!state.answered) selectAnswer(-1);
+    }
+  }, 1000);
+}
+
+function selectAnswer(choice){
+  if(state.answered) return;
+  state.answered = true;
+  clearInterval(state.timer);
+  const q = QUESTIONS[state.idx];
+  const isCorrect = choice === q.correct;
+
+  document.querySelectorAll('.opt').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i === q.correct) btn.classList.add('correct');
+    else if(i === choice) btn.classList.add('wrong');
+    else btn.classList.add('faded');
+    btn.onclick = null;
+  });
+
+  const fb = document.getElementById('feedbackBox');
+  if(isCorrect){
+    state.score += 10;
+    state.correctCount++;
+    fb.innerHTML = `
+      <div class="feedback correct">
+        <h3>🎉 CORRECT! 🔥</h3>
+        <p><b>Why?</b> ${q.exp_en}</p>
+        <p>${q.exp_hi}</p>
+      </div>`;
+  } else {
+    state.wrongCount++;
+    const correctOpt = q.options[q.correct];
+    fb.innerHTML = `
+      <div class="feedback wrong">
+        <h3>${choice===-1 ? "⏰ TIME'S UP!" : "❌ NOT QUITE!"}</h3>
+        <p>🏆 <b>Correct Answer:</b> ${String.fromCharCode(65+q.correct)} — ${correctOpt.en} / ${correctOpt.hi}</p>
+        <p>📚 <b>Why?</b> ${q.exp_en}</p>
+        <p>${q.exp_hi}</p>
+      </div>`;
+  }
+
+  const nextRow = document.getElementById('nextRow');
+  const isLast = state.idx === QUESTIONS.length - 1;
+  nextRow.innerHTML = `<button class="btn" id="nextBtn">${isLast ? '🏁 Finish Quiz' : '➡️ Next Question'}</button>`;
+  document.getElementById('nextBtn').onclick = ()=>{
+    if((state.idx+1) % 5 === 0){
+      showScoreboard(isLast);
+    } else if(isLast){
+      renderFinal();
+    } else {
+      state.idx++;
+      renderQuestion();
+    }
+  };
+}
+
+function showScoreboard(isLast){
+  const total = state.correctCount + state.wrongCount;
+  const acc = total ? Math.round((state.correctCount/total)*100) : 0;
+  let comment;
+  if(acc >= 80) comment = "🔥 You're on fire! Keep the momentum going!";
+  else if(acc >= 50) comment = "⚡ Solid progress! The traps are getting harder — stay sharp!";
+  else comment = "💪 Tough round! Time to fight back on the next set!";
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="board">
+      <h2>🏆 QUIZ SCOREBOARD</h2>
+      <div class="stat-row">
+        <div class="stat ok"><div class="num">${state.correctCount}</div><div class="lbl">✅ Correct</div></div>
+        <div class="stat no"><div class="num">${state.wrongCount}</div><div class="lbl">❌ Incorrect</div></div>
+        <div class="stat acc"><div class="num">${acc}%</div><div class="lbl">🎯 Accuracy</div></div>
+      </div>
+      <p class="comment">${comment}</p>
+      <button class="btn" id="continueBtn">${isLast ? '🏁 See Final Result' : 'Continue ➡️'}</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById('continueBtn').onclick = ()=>{
+    overlay.remove();
+    if(isLast){
+      renderFinal();
+    } else {
+      state.idx++;
+      renderQuestion();
+    }
+  };
+}
+
+function renderFinal(){
+  const total = QUESTIONS.length;
+  const acc = Math.round((state.correctCount/total)*100);
+  let grade, gmsg;
+  if(acc >= 85){grade="🏆 TOPPER"; gmsg="बेहतरीन! आप परीक्षा के लिए पूरी तरह तैयार हैं!";}
+  else if(acc >= 65){grade="🥈 STRONG"; gmsg="बहुत अच्छा प्रदर्शन! थोड़ी और प्रैक्टिस से टॉप पर पहुँचेंगे।";}
+  else if(acc >= 40){grade="🥉 GROWING"; gmsg="अच्छी शुरुआत! कमजोर टॉपिक्स पर दोबारा फोकस करें।";}
+  else {grade="📘 KEEP GOING"; gmsg="निराश मत होइए—रिवीजन करें और दोबारा अटेम्प्ट करें!";}
+
+  app.innerHTML = `
+    <div class="hero final">
+      <h2>🎬 QUIZ COMPLETE!</h2>
+      <p style="color:var(--dim);">${state.name ? state.name + ', y' : 'Y'}our final results are in</p>
+      <div class="grade">${grade}</div>
+      <div class="stat-row" style="max-width:360px; margin:0 auto;">
+        <div class="stat ok"><div class="num">${state.correctCount}</div><div class="lbl">✅ Correct</div></div>
+        <div class="stat no"><div class="num">${state.wrongCount}</div><div class="lbl">❌ Incorrect</div></div>
+        <div class="stat acc"><div class="num">${acc}%</div><div class="lbl">🎯 Accuracy</div></div>
+      </div>
+      <p style="margin-top:14px; font-size:16px;">🏅 Total Score: <b style="color:var(--gold);">${state.score} pts</b></p>
+      <p style="color:var(--cream); max-width:420px; margin:14px auto;">${gmsg}</p>
+      <button class="btn" id="restartBtn">🔄 Restart Quiz / फिर से शुरू करें</button>
+    </div>
+  `;
+  document.getElementById('restartBtn').onclick = renderStart;
+}
+
+renderStart();
+</script>
+</body>
+</html>
